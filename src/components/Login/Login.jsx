@@ -3,12 +3,25 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProviders";
 
 const Login = () => {
+  // destructuring signIn function from AuthContext
+  const { signIn } = useContext(AuthContext);
   //   const user = useContext(AuthContext);
   const handleLogIn = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+
+    //call sign in function from Auth Providers
+    signIn(email, password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+        form.reset();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   return (
     <div>
