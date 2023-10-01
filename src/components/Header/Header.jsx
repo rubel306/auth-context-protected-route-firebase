@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <div className="navbar bg-primary text-primary-content">
-      <a className="btn btn-ghost normal-case text-xl mr-12">Login System</a>
+      <a className="btn btn-ghost normal-case text-xl mr-12">Auth System</a>
       <div>
         <Link className="btn btn-ghost normal-case text-xl " to="/">
           Home
