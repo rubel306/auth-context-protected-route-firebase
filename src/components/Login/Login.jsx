@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProviders";
 
 const Login = () => {
   // destructuring signIn function from AuthContext
-  const { signIn, googleSignIn, githubSignIn } = useContext(AuthContext);
+  const { signIn, googleSignIn, githubSignIn, user } = useContext(AuthContext);
   //   const user = useContext(AuthContext);
   const handleLogIn = (e) => {
     e.preventDefault();
@@ -46,6 +46,7 @@ const Login = () => {
   return (
     <div>
       {/* {user && <p>{user.name}</p>} */}
+      {user && <Navigate to="/dashboard"></Navigate>}
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
