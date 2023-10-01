@@ -1,10 +1,14 @@
 import { useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProviders";
 
 const Login = () => {
-  // destructuring signIn function from AuthContext
   const { signIn, googleSignIn, githubSignIn, user } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location);
+  const from = location.state?.from?.pathname || "/";
+  // destructuring signIn function from AuthContext
   //   const user = useContext(AuthContext);
   const handleLogIn = (e) => {
     e.preventDefault();
@@ -18,6 +22,7 @@ const Login = () => {
         const loggedUser = result.user;
         console.log(loggedUser);
         form.reset();
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
@@ -46,7 +51,7 @@ const Login = () => {
   return (
     <div>
       {/* {user && <p>{user.name}</p>} */}
-      {user && <Navigate to="/dashboard"></Navigate>}
+      {/* {user && <Navigate to="/dashboard"></Navigate>} */}
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
@@ -58,10 +63,10 @@ const Login = () => {
                 onClick={googlePopSignIn}
                 className="btn btn-primary mr-4"
               >
-                Google Login
+                Login With Google
               </button>
               <button onClick={githubSignInPopup} className="btn btn-secondary">
-                Github Login
+                Login With Github
               </button>
             </div>
             <form onSubmit={handleLogIn} className="card-body">

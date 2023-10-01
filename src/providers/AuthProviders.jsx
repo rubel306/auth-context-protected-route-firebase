@@ -23,12 +23,14 @@ const AuthProviders = ({ children }) => {
 
   // function for create user or register new user
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   //function for sign in user
 
   const signIn = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -39,11 +41,13 @@ const AuthProviders = ({ children }) => {
 
   //Login with google popup
   const googleSignIn = () => {
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
   //Login with Github popup
   const githubSignIn = () => {
+    setLoading(true);
     return signInWithPopup(auth, githubAuthProvider);
   };
   //observe user
