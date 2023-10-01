@@ -5,10 +5,15 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+  GithubAuthProvider,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+const githubAuthProvider = new GithubAuthProvider();
 export const AuthContext = createContext(null);
 
 const AuthProviders = ({ children }) => {
@@ -31,6 +36,15 @@ const AuthProviders = ({ children }) => {
     return signOut(auth);
   };
 
+  //Login with google popup
+  const googleSignIn = () => {
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  //Login with Github popup
+  const githubSignIn = () => {
+    return signInWithPopup(auth, githubAuthProvider);
+  };
   //observe user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -44,7 +58,15 @@ const AuthProviders = ({ children }) => {
     };
   }, []);
 
-  const authInfo = { user, createUser, signIn, logOut, loading };
+  const authInfo = {
+    user,
+    createUser,
+    signIn,
+    logOut,
+    loading,
+    googleSignIn,
+    githubSignIn,
+  };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

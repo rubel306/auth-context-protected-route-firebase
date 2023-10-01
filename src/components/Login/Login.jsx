@@ -4,7 +4,7 @@ import { AuthContext } from "../../providers/AuthProviders";
 
 const Login = () => {
   // destructuring signIn function from AuthContext
-  const { signIn } = useContext(AuthContext);
+  const { signIn, googleSignIn, githubSignIn } = useContext(AuthContext);
   //   const user = useContext(AuthContext);
   const handleLogIn = (e) => {
     e.preventDefault();
@@ -23,6 +23,26 @@ const Login = () => {
         console.error(error);
       });
   };
+
+  //google popup sign in function
+  const googlePopSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => console.error(error.message));
+  };
+
+  //github sign in option
+  const githubSignInPopup = () => {
+    githubSignIn()
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => console.error(error.message));
+  };
   return (
     <div>
       {/* {user && <p>{user.name}</p>} */}
@@ -32,6 +52,17 @@ const Login = () => {
             <h1 className="text-5xl font-bold">Please Login !</h1>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div className="mt-8 mb-2 mx-auto">
+              <button
+                onClick={googlePopSignIn}
+                className="btn btn-primary mr-4"
+              >
+                Google Login
+              </button>
+              <button onClick={githubSignInPopup} className="btn btn-secondary">
+                Github Login
+              </button>
+            </div>
             <form onSubmit={handleLogIn} className="card-body">
               <div className="form-control">
                 <label className="label">
